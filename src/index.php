@@ -3,10 +3,11 @@
   $pageName = "Home";
   $isAuth = AuthController::getInstance()->checkAuth();
   $currentPage = abs(isset($_GET["p"]) ? (int)$_GET["p"] : 1);
+  $currentTag = isset($_GET["tag"]) ? (int)$_GET["tag"] : -1;
 
 
   $offset = ($POSTS_PER_PAGE * $currentPage) - $POSTS_PER_PAGE;
-  $posts = PostController::getInstance()->get($offset, $POSTS_PER_PAGE);
+  $posts = PostController::getInstance()->get($offset, $POSTS_PER_PAGE, $currentTag);
   $tags = TagController::getInstance()->getAll();
 
   // var_dump(session_id(), $_SESSION);

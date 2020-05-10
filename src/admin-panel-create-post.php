@@ -2,6 +2,7 @@
   require_once "./core/imports.php";
   $pageName = "AdminPanel";
 
+
   $isAuth = AuthController::getInstance()->checkAuth();
 
   if (!$isAuth) {
@@ -19,6 +20,31 @@
   }
 
   // var_dump($user);
+
+  if (Input::exists()) {
+
+    $data = html_entity_decode(Input::get("data"), true);
+    $title = Input::get("title");
+    $tagId = Input::get("tagId");
+
+    
+    $post = PostController::getInstance()->create(
+      $user->id,
+      $title,
+      $data,
+      $tagId
+    );
+
+    var_dump($data);
+
+    // if ($post) {
+    //   echo "success";
+    // } else {
+      header("HTTP/1.1 500");
+    // }
+    exit();
+
+  }
 ?>
 
 <head>
@@ -30,7 +56,7 @@
 
   <div id="content">
     <div class="container">
-      <canvas id="chart"></canvas>
+        <?php include "./templates/admin/post-editor.php" ?>
     </div>
   </div>
   
