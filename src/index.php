@@ -8,10 +8,9 @@
 
   $offset = ($POSTS_PER_PAGE * $currentPage) - $POSTS_PER_PAGE;
   $posts = PostController::getInstance()->get($offset, $POSTS_PER_PAGE, $currentTag);
-  $tags = TagController::getInstance()->getAll();
 
   // var_dump(session_id(), $_SESSION);
-  var_dump($offset, $posts);
+  // var_dump($offset, $posts);
 ?>
 
 <head>

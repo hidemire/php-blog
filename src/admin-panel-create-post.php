@@ -2,7 +2,6 @@
   require_once "./core/imports.php";
   $pageName = "AdminPanel";
 
-
   $isAuth = AuthController::getInstance()->checkAuth();
 
   if (!$isAuth) {
@@ -18,8 +17,6 @@
     Session::put("_urole", $user->role);
     Redirect::to("index.php");
   }
-
-  // var_dump($user);
 
   if (Input::exists()) {
 
@@ -37,13 +34,12 @@
 
     var_dump($data);
 
-    // if ($post) {
-    //   echo "success";
-    // } else {
+    if ($post) {
+      echo "success";
+    } else {
       header("HTTP/1.1 500");
-    // }
+    }
     exit();
-
   }
 ?>
 

@@ -1,5 +1,6 @@
 <?php
   $currentPage = abs(isset($_GET["p"]) ? (int)$_GET["p"] : 1);
+  $tags = TagController::getInstance()->getAll();
 ?>
 
 <div class="entry-widget">

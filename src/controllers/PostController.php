@@ -12,6 +12,10 @@
       return static::$instance;
     }
 
+    public function getById($postId) {
+      return PostRepository::getInstance()->getById($postId);
+    }
+
     public function get($offset, $count, $tag) {
       $pagination = new Pagination($offset, $count);
       $posts = PostRepository::getInstance()->get("", $pagination, $tag);
