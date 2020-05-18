@@ -42,6 +42,8 @@
     <div class="card">
       <div class="card-body">
         <div class="e-profile">
+        <form class="shake" data-toggle="validator" id=
+  "update-user-info-form" name="update-user-info-form" role="form">
           <div class="row">
             <div class="d-flex justify-content-between col-md-6 ol-sm-auto mb-3">
               <div class="mx-auto">
@@ -78,15 +80,15 @@
                       <div class="col">
                         <div class="form-group">
                           <label>Full Name</label>
-                          <input class="form-control" type="text" name="name" placeholder="<?= $user->name ?>"
+                          <input id="name" data-error="Please enter your name" class="form-control" type="text" name="name" placeholder="<?= $user->name ?>"
                             value="<?= $user->name ?>">
                         </div>
                       </div>
                       <div class="col">
                         <div class="form-group">
                           <label>Username</label>
-                          <input class="form-control" type="text" name="username" placeholder="johnny.s"
-                            value="johnny.s">
+                          <input id="login" data-error="Please enter your login" class="form-control" type="text" name="username" placeholder="<?= $user->login ?>"
+                            value="<?= $user->login ?>">
                         </div>
                       </div>
                     </div>
@@ -94,8 +96,9 @@
                       <div class="col">
                         <div class="form-group">
                           <label>Email</label>
-                          <input class="form-control" type="text" placeholder="<?= $user->email ?>"
+                          <input id="email" data-error="Please enter your email" class="form-control" type="email" placeholder="<?= $user->email ?>"
                             value="<?= $user->email ?>">
+                            <div class="help-block with-errors"></div>
                         </div>
                       </div>
                     </div>
@@ -103,7 +106,7 @@
                       <div class="col mb-3">
                         <div class="form-group">
                           <label>About</label>
-                          <textarea class="form-control" rows="5" placeholder="<?= $user->bio ?>"><?= $user->bio ?></textarea>
+                          <textarea id="bio" class="form-control" rows="5" placeholder="<?= $user->bio ?>"><?= $user->bio ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -116,7 +119,7 @@
                       <div class="col">
                         <div class="form-group">
                           <label>Current Password</label>
-                          <input class="form-control" type="password" placeholder="••••••">
+                          <input id="oldPassword" class="form-control" type="password" placeholder="••••••">
                         </div>
                       </div>
                     </div>
@@ -124,7 +127,7 @@
                       <div class="col">
                         <div class="form-group">
                           <label>New Password</label>
-                          <input class="form-control" type="password" placeholder="••••••">
+                          <input id="newPassword" class="form-control" type="password" placeholder="••••••">
                         </div>
                       </div>
                     </div>
@@ -132,19 +135,21 @@
                       <div class="col">
                         <div class="form-group">
                           <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                          <input class="form-control" type="password" placeholder="••••••"></div>
+                          <input id="confirmNewPassword" class="form-control" type="password" placeholder="••••••"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col d-flex justify-content-end">
-                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                    <button id="submit" class="btn btn-primary" type="submit">Save Changes</button>
                   </div>
+                  <div class="h3 text-center hidden" id="msgSubmit">
                 </div>
               </form>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>

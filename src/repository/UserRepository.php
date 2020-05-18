@@ -55,6 +55,27 @@ class UserRepository
       return $res;
     }
 
+    public function update(
+      $user,
+      $name,
+      $login,
+      $email,
+      $bio,
+      $oldPassword,
+      $newPassword
+    ) {
+      $userId = $user->id;
+
+      $res = $this->db->query("UPDATE users SET name='$name', login='$login', email='$email', bio='$bio' WHERE id = '$user->id'") or die($this->db->error);
+
+      if (isset($oldPassword) && !is_null($oldPassword) && md5($oldPassword) == $user->password) {
+        $newPassword = md5($newPassword);
+        $res = $this->db->query("UPDATE users SET password='$newPassword' WHERE id = '$user->id'") or die($this->db->error);
+      }
+
+      return true;
+    }
+
     private function getUserFromRow($row) {
       return new User(
         $row["id"],

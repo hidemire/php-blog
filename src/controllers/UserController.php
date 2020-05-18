@@ -24,6 +24,26 @@
       );
     }
 
+    public function update(
+      $user,
+      $name,
+      $login,
+      $email,
+      $bio,
+      $oldPassword,
+      $newPassword
+    ) {
+      return UserRepository::getInstance()->update(
+        $user,
+        $name,
+        $login,
+        $email,
+        $bio,
+        $oldPassword,
+        $newPassword
+      );
+    }
+
     public function getById($id) {
       return UserRepository::getInstance()->getById($id);
     }

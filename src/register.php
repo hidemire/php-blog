@@ -49,5 +49,5 @@
   <script src="dist/js/form-validator.min.js" type="text/javascript">
   </script> 
   <script src="dist/js/register-form-script.js" type="text/javascript">
-  </script> 
+  </script>
 </body>
