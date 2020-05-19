@@ -1,5 +1,8 @@
+let editor;
+
+
 window.addEventListener('load', () => {
-  const editor = new EditorJS({
+  editor = new EditorJS({
     /**
      * Id of Element that should contain Editor instance
      */
@@ -19,11 +22,19 @@ window.addEventListener('load', () => {
     },
   });
 
-  const tagSelector = document.querySelector('#editor-tag-selector');
+  editor.isReady.then(() => {
+    if (_POST) {
+      editor.render(_POST.decoded_data);
+    }
+  });
+
+  tagSelector = document.querySelector('#editor-tag-selector');
   const saveButton = document.querySelector('#editor-save-button');
 
-  saveButton.addEventListener('click', async () => {
-    saveButton.disabled = true;
+  saveButton.addEventListener('click', savePost);
+  
+  async function savePost() {
+    // saveButton.disabled = true;
 
     const data = await editor.save();
     console.log('data', data, JSON.stringify(data));
@@ -33,20 +44,22 @@ window.addEventListener('load', () => {
     console.log('selectedTag', selectedTag === 'null');
     console.log('header', header);
 
+    const requestUrl = _POST ? `admin-panel-edit-post.php?id=${_POST.id}` : 'admin-panel-create-post.php';
+
     $.ajax({
-      type: "POST",
-      url: "admin-panel-create-post.php",
+      type: 'POST',
+      url: requestUrl,
       data: {
         data: JSON.stringify(data),
         title: header ? header.data.text : '',
-        tagId: selectedTag
+        tagId: selectedTag,
       },
       success : function(){
-        window.location = "admin-panel.php";
+        window.location = 'admin-panel-post-list.php';
       },
       error: function(error) {
         console.log(error, false);
       }
     });
-  });
+  }
 });

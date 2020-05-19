@@ -12,33 +12,7 @@
 
   $user = UserController::getInstance()->getById($userId);
 
-  if (($user->role & $ADMIN_ROLE) != $ADMIN_ROLE) {
-    // Update user role in session key
-    Session::put("_urole", $user->role);
-    Redirect::to("index.php");
-  }
-
-  if (Input::exists()) {
-
-    $data = addslashes(html_entity_decode(Input::get("data"), true));
-    $title = Input::get("title");
-    $tagId = Input::get("tagId");
-
-    
-    $post = PostController::getInstance()->create(
-      $user->id,
-      $title,
-      $data,
-      $tagId
-    );
-
-    if ($post) {
-      echo "success";
-    } else {
-      header("HTTP/1.1 500");
-    }
-    exit();
-  }
+  $posts = PostController::getInstance()->get(0, 99999999, -1);
 ?>
 
 <head>
@@ -50,7 +24,7 @@
 
   <div id="content">
     <div class="container">
-        <?php include "./templates/admin/post-editor.php" ?>
+        <?php include "./templates/admin/post-list.php" ?>
     </div>
   </div>
   

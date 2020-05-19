@@ -34,5 +34,13 @@
         $tagId
       );
     }
+
+    public function update($post, $data, $title, $tagId) {
+      return PostRepository::getInstance()->update($post, $data, $title, $tagId);
+    }
+
+    public function deleteById($postId) {
+      return PostRepository::getInstance()->deleteById($postId);
+    }
   }
 ?>

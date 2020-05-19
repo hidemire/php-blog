@@ -22,7 +22,7 @@ class PostRepository
           ON u.id = p.authorId
           LEFT JOIN tags t
           ON t.id = p.tagId
-          WHERE p.id = $postId";
+          WHERE p.id = $postId and p.isDeleted = 0";
       
       $res = $this->db->query($query) or die($this->db->error);
       $row = $res->fetch_assoc();
@@ -64,10 +64,11 @@ class PostRepository
           LEFT JOIN users u
           ON u.id = p.authorId
           LEFT JOIN tags t
-          ON t.id = p.tagId";
+          ON t.id = p.tagId
+        WHERE p.isDeleted = 0";
       
       if($tagId != -1) {
-        $query = $query." where p.tagId = $tagId";
+        $query = $query." and p.tagId = $tagId";
       }
 
       $query = $query." order by p.createdAt desc";
@@ -88,6 +89,19 @@ class PostRepository
         $row["comments"] = $comments;
 
         $row["decoded_data"] = json_decode($row["data"], true);
+
+        $queryL = "SELECT l.*, u.name user_name
+          FROM likes l
+          LEFT JOIN users u
+            ON u.id = l.userId
+          WHERE postId = ".$row["id"];
+        $resL = $this->db->query($queryL) or die($this->db->error);
+        $likes = [];
+        while($l = $resL->fetch_assoc()) {
+          $likes[] = $l;
+        }
+        $row["likes"] = $likes;
+
         $rows[] = $row;
       }
       
@@ -95,9 +109,9 @@ class PostRepository
     }
 
     public function getCount($tagId) {
-      $query = "SELECT count(*) as total from posts ";
+      $query = "SELECT count(*) as total from posts WHERE isDeleted = 0";
       if ($tagId > -1) {
-        $query = $query."where tagId = '$tagId'";
+        $query = $query." and tagId = '$tagId'";
       }
       $res = $this->db->query($query) or die($this->db->error);
       $data = $res->fetch_assoc();
@@ -108,6 +122,20 @@ class PostRepository
       $res = $this->db->query("INSERT INTO posts SET authorId='$authorId', title='$title', data='$data', tagId='$tagId'") or die($this->db->error);
 
       return $res;
+    }
+
+    public function update($post, $data, $title, $tagId) {
+      $res = $this->db->query("UPDATE posts SET title='$title', data='$data', tagId='$tagId' WHERE id = {$post["id"]}") or die($this->db->error);
+
+      return $res;
+    }
+
+    public function deleteById($postId) {
+      $query = "UPDATE posts SET isDeleted = 1 WHERE id = '$postId'";
+
+      $res = $this->db->query($query) or die($this->db->error);
+
+      return true;
     }
 
     private function __construct()

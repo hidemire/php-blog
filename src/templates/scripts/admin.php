@@ -9,3 +9,4 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
 <script src="dist/js/admin.js" type="text/javascript"></script>
 <script src="dist/js/post-editor.js" type="text/javascript"></script>
+<script src="dist/js/admin-posts-list.js" type="text/javascript"></script>

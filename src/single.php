@@ -1,6 +1,6 @@
 <?php
   require_once "./core/imports.php";
-  $pageName = "UserInfo";
+  $pageName = "Single";
 
   $isAuth = AuthController::getInstance()->checkAuth();
 

@@ -18,19 +18,20 @@
     Redirect::to("index.php");
   }
 
-  if (Input::exists()) {
+  $postId = $_GET["id"];
+  if (!isset($postId)) {
+    Redirect::to("/admin-panel-post-list.php");
+    exit();
+  }
 
+  $post = PostController::getInstance()->getById($postId);
+
+  if (Input::exists()) {
     $data = addslashes(html_entity_decode(Input::get("data"), true));
     $title = Input::get("title");
     $tagId = Input::get("tagId");
-
     
-    $post = PostController::getInstance()->create(
-      $user->id,
-      $title,
-      $data,
-      $tagId
-    );
+    $post = PostController::getInstance()->update($post, $data, $title, $tagId);
 
     if ($post) {
       echo "success";
