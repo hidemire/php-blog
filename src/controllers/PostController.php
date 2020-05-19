@@ -35,6 +35,14 @@
       );
     }
 
+    public function addComment($postId, $userId, $message) {
+      return PostRepository::getInstance()->addComment($postId, $userId, $message);
+    }
+
+    public function addLike($postId, $userId) {
+      return PostRepository::getInstance()->addLike($postId, $userId);
+    }
+
     public function update($post, $data, $title, $tagId) {
       return PostRepository::getInstance()->update($post, $data, $title, $tagId);
     }

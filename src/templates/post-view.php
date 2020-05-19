@@ -3,7 +3,7 @@
     <?php if ($block["type"] == "image") { ?>
       <div class="blog-item-wrap">
         <a href="#"><img alt="" src="<?= $block["data"]["url"] ?>"></a>
-      </div><!-- Blog item End --><br>
+      </div><br>
     <?php } ?>
 
     <?php if ($block["type"] == "paragraph") { ?>
@@ -55,7 +55,39 @@
     <?php } ?>
   <?php } ?>
   <div class="links">
-    <a class="heart" href="#"><i class="ico-heart"></i>
+    <a class="heart" href="#" id="like-heart"><i class="ico-heart"></i>
       (<?= count($post["likes"]) ?>)</a>
   </div>
-</article><!-- Blog Article End-->
+</article>
+
+<article>
+  <div id="comments">
+    <ol class="comments-list">
+      <?php foreach ($post["comments"] as $comment) { ?>
+        <li>
+          <div class="comment-box clearfix">
+            <div class="comment-content">
+              <div class="comment-meta">
+                <h4 class="comment-by"><a href="#"><?= $comment["user_name"] ?></a></h4>
+              </div>
+              <p><?= $comment["message"] ?></p>
+            </div>
+          </div>
+        </li>
+      <?php } ?>
+    </ol>
+  </div>
+</article>
+<article>
+  <div id="respond">
+    <h2 class="respond-title">Add Comment</h2>
+    <form action="#">
+      <div class="row">
+        <div class="col-md-12">
+          <textarea class="form-control" cols="45" id="comment-textarea" name="comment" placeholder="Comment" rows="8"></textarea>
+          <a class="btn btn-common btn-more" id="comment-submit" type="submit"><i class="fa fa-check"></i>Submit Comment</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</article>

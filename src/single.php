@@ -50,4 +50,7 @@
   
   <?php include "./templates/footer.php" ?>
   <?php include "./templates/scripts/common.php" ?>
+
+  <script src="dist/js/add-comment.js" type="text/javascript"></script>
+  <script src="dist/js/add-like.js" type="text/javascript"></script>
 </body>

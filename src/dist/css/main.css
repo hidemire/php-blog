@@ -1371,9 +1371,7 @@ article .pager span a {
 #comments .avatar img {
   border-radius: 50%;
 }
-#comments .comment-content {
-  padding-left: 105px;
-}
+
 #comments .comment-content .comment-meta {
   margin-bottom: 5px;
 }

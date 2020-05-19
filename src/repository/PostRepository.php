@@ -34,7 +34,12 @@ class PostRepository
       $row["decoded_data"] = json_decode($row["data"], true);
 
       // Fetch comments
-      $query = "SELECT * from comments where postId = $postId";
+      $query = "SELECT c.*, u.name user_name
+        FROM comments c
+        LEFT JOIN users u
+          ON u.id = c.userId
+        WHERE postId = $postId
+        ORDER BY c.createdAt";
       $res = $this->db->query($query) or die($this->db->error);
       $comments = [];
       while($c = $res->fetch_assoc()) {
@@ -116,6 +121,30 @@ class PostRepository
       $res = $this->db->query($query) or die($this->db->error);
       $data = $res->fetch_assoc();
       return $data['total'];
+    }
+
+    public function addComment($postId, $userId, $message) {
+      $query = "INSERT INTO comments SET message='$message', userId='$userId', postId='$postId'";
+      $res = $this->db->query($query) or die($this->db->error);
+    
+      return $res;
+    }
+
+    public function addLike($postId, $userId) {
+      $query = "SELECT id
+        FROM likes l
+        WHERE postId = $postId and userId = $userId";
+      $res = $this->db->query($query) or die($this->db->error);
+
+      if (is_null($res->fetch_assoc())) {
+        $query = "INSERT INTO likes SET postId = $postId, userId = $userId";
+        $res = $this->db->query($query) or die($this->db->error);
+        return $res;
+      }
+
+      $query = "DELETE FROM likes WHERE postId = $postId and userId = $userId";
+      $res = $this->db->query($query) or die($this->db->error);
+      return $res;
     }
 
     public function create($authorId, $title, $data, $tagId) {
