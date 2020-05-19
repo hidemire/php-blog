@@ -18,6 +18,8 @@
     Redirect::to("index.php");
   }
 
+  $likesCount = PostController::getInstance()->getLikesCount();
+
   // var_dump($user);
 ?>
 
@@ -33,7 +35,9 @@
       <canvas id="chart"></canvas>
     </div>
   </div>
-  
+  <script>
+    const _LIKES = <?= json_encode($likesCount) ?>;
+  </script>
   <?php include "./templates/footer.php" ?>
   <?php include "./templates/scripts/common.php" ?>
   <?php include "./templates/scripts/admin.php" ?>

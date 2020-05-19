@@ -130,6 +130,22 @@ class PostRepository
       return $res;
     }
 
+    public function getLikesCount() {
+      $query = "      SELECT    COUNT(*) count, MONTH(createdAt) month 
+      FROM      likes 
+      WHERE     YEAR(createdAt) = YEAR(CURDATE()) 
+      GROUP BY  MONTH(createdAt)";
+
+      $res = $this->db->query($query) or die($this->db->error);
+      $rows = [];
+
+      while($row = $res->fetch_assoc()) {
+        $rows[] = $row;
+      }
+
+      return $rows;
+    }
+
     public function addLike($postId, $userId) {
       $query = "SELECT id
         FROM likes l

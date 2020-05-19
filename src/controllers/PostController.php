@@ -35,6 +35,10 @@
       );
     }
 
+    public function getLikesCount() {
+      return PostRepository::getInstance()->getLikesCount();
+    }
+
     public function addComment($postId, $userId, $message) {
       return PostRepository::getInstance()->addComment($postId, $userId, $message);
     }
