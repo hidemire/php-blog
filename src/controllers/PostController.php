@@ -43,6 +43,10 @@
       return PostRepository::getInstance()->addComment($postId, $userId, $message);
     }
 
+    public function deleteComment($commentId) {
+      return PostRepository::getInstance()->deleteComment($commentId);
+    }
+
     public function addLike($postId, $userId) {
       return PostRepository::getInstance()->addLike($postId, $userId);
     }

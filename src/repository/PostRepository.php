@@ -130,6 +130,13 @@ class PostRepository
       return $res;
     }
 
+    public function deleteComment($commentId) {
+      $query = "DELETE FROM comments WHERE id='$commentId'";
+      $res = $this->db->query($query) or die($this->db->error);
+    
+      return $res;
+    }
+
     public function getLikesCount() {
       $query = "      SELECT    COUNT(*) count, MONTH(createdAt) month 
       FROM      likes 

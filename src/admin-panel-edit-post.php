@@ -51,6 +51,7 @@
 
   <div id="content">
     <div class="container">
+        <?php include "./templates/admin/comment-editor.php" ?>
         <?php include "./templates/admin/post-editor.php" ?>
     </div>
   </div>
@@ -58,4 +59,5 @@
   <?php include "./templates/footer.php" ?>
   <?php include "./templates/scripts/common.php" ?>
   <?php include "./templates/scripts/admin.php" ?>
+  <script src="dist/js/admin-post-edit.js" type="text/javascript"></script> 
 </body>
