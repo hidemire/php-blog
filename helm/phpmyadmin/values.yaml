@@ -36,6 +36,7 @@ image:
 ##
 service:
   type: NodePort
+  nodePort: 30090
   port: 80
 
 db:
